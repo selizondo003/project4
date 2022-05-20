@@ -3,3 +3,27 @@
     margin:5px;
     padding:0;
 }
+body{
+    background: linear-gradient(to right, #005735, #115f35); 
+    color: #fff;
+}
+h1, h2{
+    color:aquamarine
+
+}
+#quote { 
+    font-size: 40px; 
+    font-weight: bold;
+}
+#author {
+    font-weight: normal;
+    font-size: 20px
+}
+
+img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 300px;
+    
+}
