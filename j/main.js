@@ -64,15 +64,23 @@ const folks =  await db.poet.toArray();
         const poeminfo = await fetch(`https://poetrydb.org/author,poemcount/${lastName};1`);
         const currentPoem = await poeminfo.json();
         const poemText = currentPoem[0].lines.join("\n");
+        const titleText = currentPoem[0].title;
         
         //make sure display is empty 
         let poem = document.getElementById("poem");
         poem.innerHTML = '';
+        title.innerHTML = '';
+
+        //render title of poem
+        title.innerHTML += `<p> </p>`
+        title.append(titleText);
 
         //render the poem 
         poem.innerHTML += `<p>  </p>`
         poem.append(poemText);
         console.log(poemText);
+
+
         
 
     })
