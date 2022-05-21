@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project 4</title>
     <link rel="stylesheet" href="c/main.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Belgrano&family=Vazirmatn:wght@200&display=swap');
+        </style>
     <!-- Include dexie.js -->
     <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
     <script type="module" src="j/main.js" defer></script>
@@ -13,15 +16,18 @@
 <body>
     <h1>Project 4</h1>
     <h2>Dogs, Poetry, and Inspirational Quotes Oh My!</h2>
-    <h3>After a brief loading period please select an Author from the drop down menu to read one of their poems. While waiting enjoy a dog image and inspirational quote</h2>
+    <h3>After a brief loading period please select an Author from the drop down menu to read one of their poems. While waiting enjoy an image of a dog and an inspirational quote</h2>
+
+    <hr>
 
     <h2>Authors</h2>
     <div class="container">
         <select class="poets"></select>
-        <p id="poem"></p>
+        <h4 id="title">Title of Poem</h4>
+        <p id="poem">Poem Will Show Up Here</p>
     </div>
 
-
+    <hr>
 
     <!-- This feature will come at a later time 
         <h2>Poems</h2>
