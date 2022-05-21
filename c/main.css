@@ -27,3 +27,22 @@ img{
     height: 300px;
     
 }
+
+@media screen and (min-width: 900px){
+    h1{
+        font-size: xx-large}
+    h2{
+        font-size: x-large;
+    }
+    p{
+        font-size: large;
+    }
+
+    body {
+        background: linear-gradient(to right, #005753, #115a5f); 
+        color: #fff; ;
+        max-width: 75rem;
+        margin: 0 auto;
+        padding: 1rem;
+    }
+}

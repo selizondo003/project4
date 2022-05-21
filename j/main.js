@@ -28,12 +28,13 @@ const poem_array = poem.titles;
 
 // populate the tables
 db.poet.bulkPut(poet_array);
-//db.poems.bulkPut(poem_array);
+   //db.poems.bulkPut(poem_array);
 
 // make a queries of the database
 const folks =  await db.poet.toArray();
-//const composition = await db.poems.toArray();
+   //const composition = await db.poems.toArray();
  
+//creating dropdown of the different authors
     folks.forEach((author) => {
       const option = document.createElement("OPTION");
       option.textContent = author;
@@ -49,6 +50,9 @@ const folks =  await db.poet.toArray();
     });
     */
 
+    
+    //listening for changes on list 
+    //getting last name of the poet
     poet_list.addEventListener("change", async (e) => {
         const author = e.target.value;
         const myArray = author.split(" ");
@@ -56,12 +60,16 @@ const folks =  await db.poet.toArray();
 
         console.log(lastName);
 
-
+//getting 1st poem from API
         const poeminfo = await fetch(`https://poetrydb.org/author,poemcount/${lastName};1`);
         const currentPoem = await poeminfo.json();
         const poemText = currentPoem[0].lines.join("\n");
         
-        const poem = document.getElementById("poem");
+        //make sure display is empty 
+        let poem = document.getElementById("poem");
+        poem.innerHTML = '';
+
+        //render the poem 
         poem.innerHTML += `<p>  </p>`
         poem.append(poemText);
         console.log(poemText);
