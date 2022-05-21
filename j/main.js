@@ -2,7 +2,7 @@
     "use strict";
 
     let poet_list = document.querySelector(".poets");
-    let poem_list = document.querySelector(".poems");
+    //let poem_list = document.querySelector(".poems");
 
 //create new indexDB database
 var db = new Dexie("PoetryDatabase");
@@ -10,7 +10,7 @@ var db = new Dexie("PoetryDatabase");
 //define the database schema(structure), which includes tables and their key indiecs
 db.version(1).stores({
     poet: `++, &authorPoet`,
-    poems: `++, &titleName`
+    //poems: `++, &titleName`
 });
 
 
@@ -19,18 +19,20 @@ const poet_data = await fetch('https://poetrydb.org/authors');
 const poet = await poet_data.json();
 const poet_array = poet.authors;
 
-//go get author data from poets
+/*this will come at a later phase
+//go get poem data
 const poem_data = await fetch('https://poetrydb.org/title');
 const poem = await poem_data.json();
 const poem_array = poem.titles;
+*/
 
 // populate the tables
 db.poet.bulkPut(poet_array);
-db.poems.bulkPut(poem_array);
+//db.poems.bulkPut(poem_array);
 
 // make a queries of the database
 const folks =  await db.poet.toArray();
-const composition = await db.poems.toArray();
+//const composition = await db.poems.toArray();
  
     folks.forEach((author) => {
       const option = document.createElement("OPTION");
@@ -39,12 +41,14 @@ const composition = await db.poems.toArray();
       poet_list.append(option);
     });
 
+    /* 
     composition.forEach((title) => {
       const li = document.createElement("LI");
       li.textContent = title;
       poem_list.append(li);
     });
- 
+    */
+
     poet_list.addEventListener("change", async (e) => {
         const author = e.target.value;
         const myArray = author.split(" ");
@@ -57,8 +61,11 @@ const composition = await db.poems.toArray();
         const currentPoem = await poeminfo.json();
         const poemText = currentPoem[0].lines.join("\n");
         
+        const poem = document.getElementById("poem");
+        poem.innerHTML += `<p>  </p>`
+        poem.append(poemText);
         console.log(poemText);
-
+        
 
     })
   
