@@ -28,12 +28,13 @@ const poem_array = poem.titles;
 
 // populate the tables
 db.poet.bulkPut(poet_array);
-//db.poems.bulkPut(poem_array);
+   //db.poems.bulkPut(poem_array);
 
 // make a queries of the database
 const folks =  await db.poet.toArray();
-//const composition = await db.poems.toArray();
+   //const composition = await db.poems.toArray();
  
+//creating dropdown of the different authors
     folks.forEach((author) => {
       const option = document.createElement("OPTION");
       option.textContent = author;
