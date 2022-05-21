@@ -1,30 +1,69 @@
+(async function (){
+    "use strict";
+
+    let poet_list = document.querySelector(".poets");
+    let poem_list = document.querySelector(".poems");
+
 //create new indexDB database
-var db = new Dexie("QuotesDatabase");
+var db = new Dexie("PoetryDatabase");
 
 //define the database schema(structure), which includes tables and their key indiecs
 db.version(1).stores({
-    txtquote: `id, quote`,
-    author: `id, author`
+    poet: `++, &authorPoet`,
+    poems: `++, &titleName`
 });
 
-//populate quotes
-await db.txtquote.bulkPut([
 
-])
-//populate author
-await db.txtquote.bulkPut([
+//go get author data from poets
+const poet_data = await fetch('https://poetrydb.org/authors');
+const poet = await poet_data.json();
+const poet_array = poet.authors;
 
-])
-await db
-.transaction("rw", db.txtquote, db.author, async (tx) => {
-    let info =[];
+//go get author data from poets
+const poem_data = await fetch('https://poetrydb.org/title');
+const poem = await poem_data.json();
+const poem_array = poem.titles;
 
-    //query the db and convert results into an easy to use array.
-    //get all of the records in the quote table.
-    info[0] = await db.txtquote.toArray();
+// populate the tables
+db.poet.bulkPut(poet_array);
+db.poems.bulkPut(poem_array);
 
-    
-}
+// make a queries of the database
+const folks =  await db.poet.toArray();
+const composition = await db.poems.toArray();
+ 
+    folks.forEach((author) => {
+      const option = document.createElement("OPTION");
+      option.textContent = author;
+      option.value = author;
+      poet_list.append(option);
+    });
+
+    composition.forEach((title) => {
+      const li = document.createElement("LI");
+      li.textContent = title;
+      poem_list.append(li);
+    });
+ 
+    poet_list.addEventListener("change", async (e) => {
+        const author = e.target.value;
+        const myArray = author.split(" ");
+        const lastName = myArray.pop();
+
+        console.log(lastName);
+
+
+        const poeminfo = await fetch(`https://poetrydb.org/author,poemcount/${lastName};1`);
+        const currentPoem = await poeminfo.json();
+        const poemText = currentPoem[0].lines.join("\n");
+        
+        console.log(poemText);
+
+
+    })
+  
+} ()); // end IIFE
+
 
 
 //pulling in a random inspirational quote 
